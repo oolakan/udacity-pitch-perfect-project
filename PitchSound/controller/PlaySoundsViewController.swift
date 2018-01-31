@@ -31,6 +31,13 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAudio()
+        snailButton.contentMode = UIViewContentMode.scaleAspectFit
+        chipmunkButton.contentMode = UIViewContentMode.scaleAspectFit
+        rabbitButton.contentMode = UIViewContentMode.scaleAspectFit
+        vaderButton.contentMode = UIViewContentMode.scaleAspectFit
+        echoButton.contentMode = UIViewContentMode.scaleAspectFit
+        reverbButton.contentMode = UIViewContentMode.scaleAspectFit
+        stopButton.contentMode = UIViewContentMode.scaleAspectFit
     }
     // MARK: Actions
     

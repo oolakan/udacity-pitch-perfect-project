@@ -24,39 +24,44 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
- 
+// change record or stop button status when clicked
+    fileprivate func changeButtonViewStatus(message: String, stopButtonStatus: Bool, startButtonStatus: Bool) {
+        stopRecordingBtn.isEnabled = stopButtonStatus
+        startRecordingBtn.isEnabled = startButtonStatus
+        startRecordingLbl.text = message
+    }
+    
     @IBAction func stopAudio(_ sender: Any) {
         print("stop recording button clicked")
-        stopRecordingBtn.isEnabled = false
-        startRecordingBtn.isEnabled = true
-        startRecordingLbl.text = "Tap to record"
+        let message = "Tap to record"
+        changeButtonViewStatus(message: message, stopButtonStatus: false, startButtonStatus: true)
         audioRecorder.stop()
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-       // print("Stopped recording");
+        print("Stopped recording");
         if flag {
             performSegue(withIdentifier: "stopRecording", sender: audioRecorder.url)
         }
         else{
-               print("Unable to save")
+            let alertContrl = UIAlertController();
+            alertContrl.title = "Error"
+            alertContrl.message = "Unable to save"
+            let alertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { action in self.dismiss(animated: true, completion: nil)}
+            alertContrl.addAction(alertAction)
+            self.present(alertContrl, animated: true, completion: nil)
         }
 
     }
     @IBAction func recordAudio(_ sender: Any) {
         print("start recording button clicked")
-        startRecordingBtn.isEnabled = false
-        stopRecordingBtn.isEnabled = true
-        startRecordingLbl.text = "Recording in progress"
-        
+        let message = "Recording in progress"
+        changeButtonViewStatus(message: message, stopButtonStatus: true, startButtonStatus: false)
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true)[0] as String
         let recordingName = "recordedVoice.wav"
         let pathArray = [dirPath, recordingName]
-//        let filePath = URL(string: )
         //create an instance of AudioFile class
         let audioFile = AudioFile(filePath: pathArray.joined(separator: "/"));
         let filePath = URL(string: audioFile._filePath)
