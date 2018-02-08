@@ -31,6 +31,7 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAudio()
+        //REF: https://stackoverflow.com/questions/11346697/how-to-not-stretch-an-image-in-uibutton
         self.snailButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
         self.chipmunkButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
         self.rabbitButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
